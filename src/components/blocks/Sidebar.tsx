@@ -49,6 +49,7 @@ export default function CollapsibleSidebar({
                 exit={{ opacity: 0, x: -8 }}
                 className="text-base font-semibold text-[#0F766E]"
               >
+                Sections
               </motion.h1>
             )}
           </AnimatePresence>

@@ -4,7 +4,8 @@
     "sections":"Sections",
     "navigation":"Navigation",
     "content":"Content",
-      "navigation-with-logo-and-menu-items"  :"Navigation with logo and menu items"
+      "navigation-with-logo-and-menu-items"  :"Navigation with logo and menu items",
+      "versatile-component" :"A versatile component for any page."
 
     }
 }
