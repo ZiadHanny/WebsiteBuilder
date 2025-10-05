@@ -1,8 +1,5 @@
-
 import React from "react";
 import BuilderPage from "../../../components/main/blinderPage";
-
-
 
 export default function LangHome({
   params,
@@ -12,8 +9,8 @@ export default function LangHome({
   const { lang } = params;
 
   return (
-    <main className="flex flex-col w-full h-full items-center justify-start ">
-      <BuilderPage />
+    <main className="flex flex-col w-full h-full items-center justify-start">
+      <BuilderPage lang={lang} />
     </main>
   );
 }

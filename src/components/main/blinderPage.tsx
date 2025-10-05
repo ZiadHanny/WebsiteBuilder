@@ -15,8 +15,11 @@ interface Section {
   id: string;
   name: SectionName;
 }
+interface BuilderPageProps {
+  lang: string;
+}
 
-export default function BuilderPage() {
+export default function BuilderPage({ lang }: BuilderPageProps) {
   const [sections, setSections] = useState<Section[]>([]);
   const [isPreview, setIsPreview] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
