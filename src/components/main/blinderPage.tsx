@@ -15,11 +15,9 @@ interface Section {
   id: string;
   name: SectionName;
 }
-interface BuilderPageProps {
-  lang: string;
-}
 
-export default function BuilderPage({ lang }: BuilderPageProps) {
+
+export default function BuilderPage() {
   const [sections, setSections] = useState<Section[]>([]);
   const [isPreview, setIsPreview] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -172,7 +170,6 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
                       data={navData}
                       onChange={setNavData}
                       editing={true}
-                      lang={lang}
                     />
                   )}
                   {section.name === "Hero" && (
@@ -180,7 +177,6 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
                       data={heroData}
                       onChange={setHeroData}
                       editing={true}
-                      lang={lang}
                     />
                   )}
                   {section.name === "Footer" && (
@@ -188,7 +184,6 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
                       data={footerData}
                       onChange={setFooterData}
                       editing={true}
-                      lang={lang}
                     />
                   )}
                 </div>
@@ -205,7 +200,6 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
                       data={navData}
                       onChange={setNavData}
                       editing={false}
-                      lang={lang}
                     />
                   )}
                   {section.name === "Hero" && (
@@ -213,7 +207,6 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
                       data={heroData}
                       onChange={setHeroData}
                       editing={false}
-                      lang={lang} // 
                     />
                   )}
                   {section.name === "Footer" && (
@@ -221,7 +214,6 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
                       data={footerData}
                       onChange={setFooterData}
                       editing={false}
-                      lang={lang}
                     />
                   )}
                 </React.Fragment>

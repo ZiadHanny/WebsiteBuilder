@@ -14,10 +14,9 @@ interface EditableFooterProps {
   data: FooterData;
   onChange: (data: FooterData) => void;
   editing?: boolean;
-  lang: string
 }
 
-export default function EditableFooter({ data, onChange, editing, lang }: EditableFooterProps) {
+export default function EditableFooter({ data, onChange, editing }: EditableFooterProps) {
   const [text, setText] = useState(data.text);
   const [links, setLinks] = useState<FooterLink[]>(data.links);
   const [editingText, setEditingText] = useState(false);

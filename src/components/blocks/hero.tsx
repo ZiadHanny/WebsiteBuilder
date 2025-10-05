@@ -8,10 +8,9 @@ interface EditableHeroProps {
     data: HeroData;
     onChange: (data: HeroData) => void;
     editing?: boolean;
-    lang: string;
 }
 
-export default function EditableHero({ data, onChange, editing, lang }: EditableHeroProps) {
+export default function EditableHero({ data, onChange, editing }: EditableHeroProps) {
     const [local, setLocal] = useState<HeroData>(data);
     const [editingField, setEditingField] = useState<keyof HeroData | null>(null);
 
