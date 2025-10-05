@@ -1,4 +1,5 @@
 "use client";
+import { IMAGES } from "@/constants/Image";
 import { FooterData } from "@/types/blocksTypes";
 import React, { useState } from "react";
 
@@ -13,15 +14,15 @@ interface EditableFooterProps {
   data: FooterData;
   onChange: (data: FooterData) => void;
   editing?: boolean;
+  lang: string
 }
 
-export default function EditableFooter({ data, onChange, editing }: EditableFooterProps) {
+export default function EditableFooter({ data, onChange, editing, lang }: EditableFooterProps) {
   const [text, setText] = useState(data.text);
   const [links, setLinks] = useState<FooterLink[]>(data.links);
   const [editingText, setEditingText] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
-  // ألوان مخصصة
   const [styles, setStyles] = useState(
     data.styles || {
       backgroundColor: "#0F766E",
@@ -127,7 +128,7 @@ export default function EditableFooter({ data, onChange, editing }: EditableFoot
                   className="text-xs text-red-300 hover:text-red-500"
                   title="Remove"
                 >
-                  ✕
+                  <IMAGES.ICONS.Delete />
                 </button>
               )}
             </div>
@@ -144,7 +145,7 @@ export default function EditableFooter({ data, onChange, editing }: EditableFoot
         </div>
       </div>
 
-      {/* Color Controls (عند التعديل فقط) */}
+
       {editing && (
         <div className="flex justify-center flex-wrap gap-4 mt-6 px-4 text-sm">
           <div className="flex flex-col items-center">

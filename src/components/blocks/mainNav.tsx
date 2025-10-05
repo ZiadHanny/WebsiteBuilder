@@ -14,9 +14,10 @@ interface EditableHeaderProps {
     data: HeaderData;
     onChange: (data: HeaderData) => void;
     editing?: boolean;
+    lang: string;
 }
 
-export default function EditableHeader({ data, onChange, editing }: EditableHeaderProps) {
+export default function EditableHeader({ data, onChange, editing, lang }: EditableHeaderProps) {
     const [logoText, setLogoText] = useState(data.Logo);
     const [links, setLinks] = useState<NavLink[]>(data.links);
     const [textButton, setTextButton] = useState(data.button);

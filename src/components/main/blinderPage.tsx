@@ -64,7 +64,6 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
 
   const handleAddSection = (name: SectionName) => {
     const newSection: Section = { id: crypto.randomUUID(), name };
-    // Only allow one instance of each major component (Header, Footer)
     if (
       (name === "Header" && sections.some((s) => s.name === "Header")) ||
       (name === "Footer" && sections.some((s) => s.name === "Footer"))
@@ -105,7 +104,6 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
         if (imported.footerData) setFooterData(imported.footerData);
         if (imported.sections) setSections(imported.sections);
       } catch {
-        // Use a custom UI alert instead of native alert
         console.error("Invalid JSON file imported.");
       }
     };
@@ -117,7 +115,6 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
       {!isPreview && <CollapsibleSidebar onAddSection={handleAddSection} />}
 
       <div className="flex-1 overflow-auto p-4 md:p-6">
-
         {!isPreview && (
           <div className="flex flex-wrap justify-end gap-3 mb-3">
             <button
@@ -150,7 +147,6 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
 
         {/* Main Content Area */}
         <div className="flex flex-col w-full mx-auto ">
-
           {!isPreview && (
             <>
               {sections.length === 0 && (
@@ -163,7 +159,6 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
                   key={section.id}
                   className="relative my-4 p-4 border border-gray-300 rounded-xl bg-white shadow-lg transition-all duration-300 group hover:shadow-xl"
                 >
-                  {/* Delete Button */}
                   <button
                     onClick={() => handleDeleteSection(section.id)}
                     className="absolute right-3 top-3 z-10 p-1 bg-white text-white rounded-full text-sm hover:bg-amber-50 transition opacity-0 group-hover:opacity-100"
@@ -173,32 +168,61 @@ export default function BuilderPage({ lang }: BuilderPageProps) {
                   </button>
 
                   {section.name === "Header" && (
-                    <EditableHeader data={navData} onChange={setNavData} editing={true} />
+                    <EditableHeader
+                      data={navData}
+                      onChange={setNavData}
+                      editing={true}
+                      lang={lang}
+                    />
                   )}
                   {section.name === "Hero" && (
-                    <EditableHero data={heroData} onChange={setHeroData} editing={true} />
+                    <EditableHero
+                      data={heroData}
+                      onChange={setHeroData}
+                      editing={true}
+                      lang={lang}
+                    />
                   )}
                   {section.name === "Footer" && (
-                    <EditableFooter data={footerData} onChange={setFooterData} editing={true} />
+                    <EditableFooter
+                      data={footerData}
+                      onChange={setFooterData}
+                      editing={true}
+                      lang={lang}
+                    />
                   )}
                 </div>
               ))}
             </>
           )}
 
-
           {isPreview && (
             <div className="w-full h-full">
               {sections.map((section) => (
                 <React.Fragment key={section.id}>
                   {section.name === "Header" && (
-                    <EditableHeader data={navData} onChange={setNavData} editing={false} />
+                    <EditableHeader
+                      data={navData}
+                      onChange={setNavData}
+                      editing={false}
+                      lang={lang}
+                    />
                   )}
                   {section.name === "Hero" && (
-                    <EditableHero data={heroData} onChange={setHeroData} editing={false} />
+                    <EditableHero
+                      data={heroData}
+                      onChange={setHeroData}
+                      editing={false}
+                      lang={lang} // 
+                    />
                   )}
                   {section.name === "Footer" && (
-                    <EditableFooter data={footerData} onChange={setFooterData} editing={false} />
+                    <EditableFooter
+                      data={footerData}
+                      onChange={setFooterData}
+                      editing={false}
+                      lang={lang}
+                    />
                   )}
                 </React.Fragment>
               ))}
