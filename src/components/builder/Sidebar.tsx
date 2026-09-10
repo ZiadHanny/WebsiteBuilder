@@ -3,15 +3,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { IMAGES } from "@/constants/Image";
+import { SECTION_INFO, SECTION_NAMES } from "@/constants/sectionDefaults";
 import type { SectionName } from "@/types/blocksTypes";
-
-const SECTION_INFO: Record<SectionName, { tag: string; description: string; unique: boolean }> = {
-  Header: { tag: "Navigation", description: "Navigation with logo and menu items", unique: true },
-  Hero: { tag: "Content", description: "A big introduction banner for any page.", unique: false },
-  Footer: { tag: "Content", description: "Links and copyright, at the bottom of the page.", unique: true },
-};
-
-const SECTIONS: SectionName[] = ["Header", "Hero", "Footer"];
 
 interface SidebarProps {
   onAddSection: (name: SectionName) => void;
@@ -70,7 +63,7 @@ export default function CollapsibleSidebar({ onAddSection, hasSection }: Sidebar
 
         {/* Sections */}
         <div className="flex-1 space-y-3 overflow-y-auto p-3">
-          {SECTIONS.map((name) => {
+          {SECTION_NAMES.map((name) => {
             const info = SECTION_INFO[name];
             const disabled = info.unique && hasSection(name);
 
@@ -87,7 +80,7 @@ export default function CollapsibleSidebar({ onAddSection, hasSection }: Sidebar
                 `}
               >
                 <div className={`rounded-md bg-[#0F766E]/10 p-2 text-[#0F766E] ${open ? "self-start" : "m-auto"}`}>
-                  <span className="text-xl font-bold">{name.charAt(0)}</span>
+                  <span className="text-sm font-bold">{name.slice(0, 3).toUpperCase()}</span>
                 </div>
 
                 <AnimatePresence>

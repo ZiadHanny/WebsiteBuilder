@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import type { BlockStyles, FooterData } from "@/types/blocksTypes";
-import { DEFAULT_BLOCK_STYLES } from "@/types/blocksTypes";
 import EditableText from "@/components/ui/EditableText";
 import EditableLinkList from "@/components/ui/EditableLinkList";
-import ColorStylePicker from "@/components/ui/ColorStylePicker";
+import SectionControls from "@/components/ui/SectionControls";
+import AnimatedBlock from "@/components/ui/AnimatedBlock";
+import { getSectionBackgroundStyle } from "@/utils/sectionStyle";
 
 interface EditableFooterProps {
   data: FooterData;
@@ -13,7 +14,7 @@ interface EditableFooterProps {
 }
 
 export default function EditableFooter({ data, onChange, editing }: EditableFooterProps) {
-  const styles = data.styles ?? DEFAULT_BLOCK_STYLES;
+  const styles = data.styles;
 
   const handleStyleChange = (key: keyof BlockStyles, value: string) => {
     onChange({ ...data, styles: { ...styles, [key]: value } });
@@ -22,9 +23,13 @@ export default function EditableFooter({ data, onChange, editing }: EditableFoot
   return (
     <footer
       className="w-full rounded-b-xl py-6 shadow-md transition-colors"
-      style={{ backgroundColor: styles.backgroundColor, color: styles.textColor, borderTop: `4px solid ${styles.borderColor}` }}
+      style={{ ...getSectionBackgroundStyle(styles, "borderTop"), color: styles.textColor }}
     >
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 md:flex-row">
+      <AnimatedBlock
+        animation={data.animation}
+        editing={editing}
+        className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 md:flex-row"
+      >
         <EditableText
           value={data.text}
           onChange={(text) => onChange({ ...data, text })}
@@ -40,11 +45,16 @@ export default function EditableFooter({ data, onChange, editing }: EditableFoot
           textColor={styles.textColor}
           className="flex flex-wrap justify-center gap-4 md:justify-end"
         />
-      </div>
+      </AnimatedBlock>
 
       {editing && (
         <div className="mt-6 flex justify-center px-4">
-          <ColorStylePicker styles={styles} onChange={handleStyleChange} />
+          <SectionControls
+            styles={styles}
+            animation={data.animation}
+            onStyleChange={handleStyleChange}
+            onAnimationChange={(animation) => onChange({ ...data, animation })}
+          />
         </div>
       )}
     </footer>

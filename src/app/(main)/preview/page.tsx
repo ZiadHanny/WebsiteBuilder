@@ -11,7 +11,7 @@ import SectionRenderer from "@/components/builder/SectionRenderer";
  * without the editor sidebar/toolbar around it.
  */
 export default function PreviewPage() {
-  const { isLoaded, sections, navData, heroData, footerData, setNavData, setHeroData, setFooterData } = useBuilder();
+  const { isLoaded, sections, updateSection } = useBuilder();
 
   if (!isLoaded) return null;
 
@@ -33,12 +33,7 @@ export default function PreviewPage() {
           key={section.id}
           section={section}
           editing={false}
-          navData={navData}
-          heroData={heroData}
-          footerData={footerData}
-          onNavChange={setNavData}
-          onHeroChange={setHeroData}
-          onFooterChange={setFooterData}
+          onChange={(data) => updateSection(section.id, data)}
         />
       ))}
     </div>
