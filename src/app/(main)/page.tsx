@@ -1,10 +1,9 @@
-import BuilderPage from "@/components/main/blinderPage";
+import BuilderPage from "@/components/builder/BuilderPage";
 import React from "react";
 
-export default function LangHome() {
-
+export default function Home() {
   return (
-    <main className="flex flex-col w-full h-full items-center justify-start">
+    <main className="flex w-full h-full flex-col items-center justify-start">
       <BuilderPage />
     </main>
   );

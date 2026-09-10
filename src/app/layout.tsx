@@ -2,8 +2,8 @@ import "./globals.css";
 import React from "react";
 
 export const metadata = {
-  title: " Website Builder",
-  description: "My Next.js App",
+  title: "Website Builder",
+  description: "A drag-and-drop visual website builder — add sections, edit content and colors inline, then export the result as JSON.",
 };
 
 export default function RootLayout({
@@ -12,11 +12,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html >
-      <head><link href="/dist/styles.css" rel="stylesheet" /></head>
-      <body className="flex flex-row  w-full min-h-screen overflow-x-hidden">
-        {children}
-      </body>
+    <html lang="en">
+      <body className="min-h-screen w-full overflow-x-hidden">{children}</body>
     </html>
   );
 }

@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Website Builder
 
-## Getting Started
+A small, client-side visual page builder built with Next.js. Add a Header,
+Hero, and/or Footer section, edit the text and colors directly in place,
+reorder or remove sections, and export/import the whole page as JSON.
 
-First, run the development server:
+## Features
+
+- **Click-to-edit content** — logo, nav links, headline, subtitle, button
+  text, footer text and links are all editable inline; no separate settings
+  panel.
+- **Per-section color controls** — background, text, and border color for
+  every section.
+- **Reorder and remove sections** on hover, from the section's own toolbar.
+- **Export / Import as JSON** to save a page and load it back later.
+- **Autosaves to your browser** (`localStorage`) as you edit, so a reload
+  doesn't lose your work.
+- **Live preview** — either toggle in-place, or open `/preview` in a new
+  tab for a completely chrome-free view of the page.
+
+## Running locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev       # http://localhost:3000
+npm run build     # production build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+  app/
+    (main)/
+      page.tsx        # the builder screen
+      preview/page.tsx # chrome-free live preview, reads the saved page
+    layout.tsx
+  components/
+    builder/           # BuilderPage, Sidebar, SectionRenderer — builder-only UI
+    blocks/             # Header, Hero, Footer — the actual page content blocks
+    ui/                 # EditableText, EditableLinkList, ColorStylePicker — shared primitives
+  hooks/
+    useBuilder.ts        # all builder state: sections, block data, persistence, import/export
+  types/
+    blocksTypes.ts       # Section/BuilderData/block data shapes
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All page state lives in `useBuilder`; the block components (`Header`, `Hero`,
+`Footer`) are pure presentational components that take their data and an
+`onChange` callback, so the same components render both the editable
+builder view and the read-only preview.
 
-## Learn More
+## Notes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This is a client-only MVP: everything (state, autosave, import/export)
+happens in the browser, there's no backend or database, and exported pages
+are static markup you'd still need to host somewhere yourself.
