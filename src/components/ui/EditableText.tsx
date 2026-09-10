@@ -7,7 +7,7 @@ interface EditableTextProps {
   onChange: (value: string) => void;
   /** Whether the surrounding block is in builder edit mode at all. */
   editing?: boolean;
-  as?: "h1" | "p" | "span";
+  as?: "h1" | "h2" | "h3" | "p" | "span";
   multiline?: boolean;
   className?: string;
   style?: React.CSSProperties;

@@ -7,13 +7,6 @@ import { IMAGES } from "@/constants/Image";
 import { useBuilder } from "@/hooks/useBuilder";
 import CollapsibleSidebar from "./Sidebar";
 import SectionRenderer from "./SectionRenderer";
-import type { SectionName } from "@/types/blocksTypes";
-
-const SECTION_LABELS: Record<SectionName, string> = {
-  Header: "Header",
-  Hero: "Hero",
-  Footer: "Footer",
-};
 
 export default function BuilderPage() {
   const builder = useBuilder();
@@ -63,12 +56,7 @@ export default function BuilderPage() {
           {!isPreview && (
             <BuilderView
               sections={builder.sections}
-              navData={builder.navData}
-              heroData={builder.heroData}
-              footerData={builder.footerData}
-              onNavChange={builder.setNavData}
-              onHeroChange={builder.setHeroData}
-              onFooterChange={builder.setFooterData}
+              onChange={builder.updateSection}
               onRemove={builder.removeSection}
               onMove={builder.moveSection}
             />
@@ -81,12 +69,7 @@ export default function BuilderPage() {
                   key={section.id}
                   section={section}
                   editing={false}
-                  navData={builder.navData}
-                  heroData={builder.heroData}
-                  footerData={builder.footerData}
-                  onNavChange={builder.setNavData}
-                  onHeroChange={builder.setHeroData}
-                  onFooterChange={builder.setFooterData}
+                  onChange={(data) => builder.updateSection(section.id, data)}
                 />
               ))}
             </div>
@@ -145,22 +128,12 @@ function Toolbar({
 
 function BuilderView({
   sections,
-  navData,
-  heroData,
-  footerData,
-  onNavChange,
-  onHeroChange,
-  onFooterChange,
+  onChange,
   onRemove,
   onMove,
 }: {
   sections: ReturnType<typeof useBuilder>["sections"];
-  navData: ReturnType<typeof useBuilder>["navData"];
-  heroData: ReturnType<typeof useBuilder>["heroData"];
-  footerData: ReturnType<typeof useBuilder>["footerData"];
-  onNavChange: ReturnType<typeof useBuilder>["setNavData"];
-  onHeroChange: ReturnType<typeof useBuilder>["setHeroData"];
-  onFooterChange: ReturnType<typeof useBuilder>["setFooterData"];
+  onChange: ReturnType<typeof useBuilder>["updateSection"];
   onRemove: (id: string) => void;
   onMove: (id: string, direction: "up" | "down") => void;
 }) {
@@ -185,7 +158,7 @@ function BuilderView({
           className="group relative my-4 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-lg"
         >
           <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50 px-3 py-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-            <span className="text-xs font-medium text-gray-500">{SECTION_LABELS[section.name]}</span>
+            <span className="text-xs font-medium text-gray-500">{section.name}</span>
             <div className="flex items-center gap-1">
               <button
                 onClick={() => onMove(section.id, "up")}
@@ -213,16 +186,7 @@ function BuilderView({
             </div>
           </div>
 
-          <SectionRenderer
-            section={section}
-            editing
-            navData={navData}
-            heroData={heroData}
-            footerData={footerData}
-            onNavChange={onNavChange}
-            onHeroChange={onHeroChange}
-            onFooterChange={onFooterChange}
-          />
+          <SectionRenderer section={section} editing onChange={(data) => onChange(section.id, data)} />
         </motion.div>
       ))}
     </AnimatePresence>
