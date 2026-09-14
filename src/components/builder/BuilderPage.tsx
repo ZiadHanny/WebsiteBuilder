@@ -86,6 +86,10 @@ export default function BuilderPage() {
             </button>
           </div>
         )}
+
+        <footer className="mt-10 border-t border-gray-200 py-4 text-center text-xs text-gray-400">
+          Made by Ziad Hany
+        </footer>
       </div>
     </div>
   );
